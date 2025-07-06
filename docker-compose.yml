@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  q:
+    build:               # Compose will (re)build automatically
+      context: .
+      dockerfile: Dockerfile
+    image: amazon-q-diagrams
+    tty: true
+    stdin_open: true
+    working_dir: /work
+    volumes:
+      # Persist login token (SQLite DB)
+      - q_creds:/root/.local/share/amazon-q
+      # Put generated diagrams in your project folder
+      - ./:/work
+
+volumes:
+  q_creds:
